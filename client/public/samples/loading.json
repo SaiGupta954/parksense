@@ -1,0 +1,48 @@
+{
+  "readable": true,
+  "notes": "",
+  "signs": [
+    {
+      "order": 1,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI",
+        "SAT"
+      ],
+      "anytime": false,
+      "start": "07:00",
+      "end": "10:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "COMMERCIAL\nLOADING ONLY\n7AM - 10AM\nMON - SAT",
+      "type": "loading_zone"
+    },
+    {
+      "order": 2,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI",
+        "SAT"
+      ],
+      "anytime": false,
+      "start": "10:00",
+      "end": "20:00",
+      "maxMinutes": 120,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "PAY TO PARK\n2 HOUR LIMIT\n10AM - 8PM\nMON - SAT",
+      "type": "metered"
+    }
+  ]
+}

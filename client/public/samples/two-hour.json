@@ -1,0 +1,34 @@
+{
+  "readable": true,
+  "notes": "",
+  "signs": [
+    {
+      "order": 1,
+      "days": [],
+      "anytime": false,
+      "start": "08:00",
+      "end": "18:00",
+      "maxMinutes": 120,
+      "permitZone": null,
+      "exceptText": "EXCEPT SUNDAY",
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "2 HOUR\nPARKING\n8AM - 6PM\nEXCEPT SUNDAY",
+      "type": "time_limit"
+    },
+    {
+      "order": 2,
+      "days": [],
+      "anytime": true,
+      "start": null,
+      "end": null,
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "left",
+      "confidence": 0.96,
+      "rawText": "NO PARKING\nANYTIME",
+      "type": "no_parking"
+    }
+  ]
+}

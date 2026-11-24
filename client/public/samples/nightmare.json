@@ -1,0 +1,76 @@
+{
+  "readable": true,
+  "notes": "",
+  "signs": [
+    {
+      "order": 1,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "16:00",
+      "end": "19:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "NO STOPPING\n4PM - 7PM\nMON - FRI",
+      "type": "no_stopping"
+    },
+    {
+      "order": 2,
+      "days": [
+        "WED"
+      ],
+      "anytime": false,
+      "start": "00:00",
+      "end": "06:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "NO PARKING\n12AM - 6AM\nWEDNESDAY\nSTREET CLEANING",
+      "type": "street_cleaning"
+    },
+    {
+      "order": 3,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "08:00",
+      "end": "16:00",
+      "maxMinutes": 60,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "1 HOUR\nPARKING\n8AM - 4PM\nMON - FRI",
+      "type": "time_limit"
+    },
+    {
+      "order": 4,
+      "days": [],
+      "anytime": false,
+      "start": "19:00",
+      "end": "07:00",
+      "maxMinutes": null,
+      "permitZone": "7",
+      "exceptText": null,
+      "arrow": "right",
+      "confidence": 0.96,
+      "rawText": "PERMIT 7\nONLY\n7PM - 7AM",
+      "type": "permit_only"
+    }
+  ]
+}

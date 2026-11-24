@@ -1,0 +1,42 @@
+{
+  "readable": true,
+  "notes": "",
+  "signs": [
+    {
+      "order": 1,
+      "days": [
+        "TUE"
+      ],
+      "anytime": false,
+      "start": "10:00",
+      "end": "12:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "NO PARKING\n10AM - 12PM\nTUESDAY\nSTREET CLEANING",
+      "type": "street_cleaning"
+    },
+    {
+      "order": 2,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "09:00",
+      "end": "18:00",
+      "maxMinutes": 120,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "2 HOUR PARKING\n9AM - 6PM\nMON THRU FRI",
+      "type": "time_limit"
+    }
+  ]
+}

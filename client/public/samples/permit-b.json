@@ -1,0 +1,34 @@
+{
+  "readable": true,
+  "notes": "The zone letter on sign 2 is faded — I think it says B.",
+  "signs": [
+    {
+      "order": 1,
+      "days": [],
+      "anytime": false,
+      "start": "08:00",
+      "end": "18:00",
+      "maxMinutes": 60,
+      "permitZone": "B",
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "1 HOUR PARKING\n8AM - 6PM\nEXCEPT VEHICLES\nWITH ZONE B PERMITS",
+      "type": "time_limit"
+    },
+    {
+      "order": 2,
+      "days": [],
+      "anytime": false,
+      "start": "18:00",
+      "end": "08:00",
+      "maxMinutes": null,
+      "permitZone": "B",
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.62,
+      "rawText": "PERMIT PARKING\nZONE B ONLY\n6PM - 8AM",
+      "type": "permit_only"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "readable": true,
+  "notes": "",
+  "signs": [
+    {
+      "order": 1,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "07:00",
+      "end": "09:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "TOW-AWAY\nNO STOPPING\n7AM - 9AM\nMON - FRI",
+      "type": "tow_away"
+    },
+    {
+      "order": 2,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "16:00",
+      "end": "19:00",
+      "maxMinutes": null,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "TOW-AWAY\nNO STOPPING\n4PM - 7PM\nMON - FRI",
+      "type": "tow_away"
+    },
+    {
+      "order": 3,
+      "days": [
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI"
+      ],
+      "anytime": false,
+      "start": "09:00",
+      "end": "16:00",
+      "maxMinutes": 120,
+      "permitZone": null,
+      "exceptText": null,
+      "arrow": "none",
+      "confidence": 0.96,
+      "rawText": "PAY AT METER\n2 HR MAX\n9AM - 4PM\nMON - FRI",
+      "type": "metered"
+    }
+  ]
+}
