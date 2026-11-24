@@ -120,6 +120,7 @@ That makes every answer **explainable** (the “Why?” trace quotes the sign), 
 
 ## Design decisions
 
+- **3D-first, few words:** the scene takes about two-thirds of the screen. The panel shows a big YES/NO, one short line, and compact rows. The reasoning, sign editor and reminder open on tap, and details live in tooltips. On phones the scene sits on top with a bottom sheet; on tablets the scene gets 55% of the height.
 - **City street at night:** asphalt `#0B0D10`, sodium-lamp `#FFB347` glow, signage red `#E0322B` and permit green `#1FA463` used only as accents, plus CSS film grain. Overpass (open-source, inspired by US highway signage) for signs and headings, Inter for body text.
 - **Fonts are self-hosted** via `@fontsource` instead of loaded from the Google Fonts CDN, so nothing leaves the device.
 - **Status is never color-only:** always an icon plus words (✓ Allowed, ⏱ 2-hour limit, $ Paid, 🅿 Permit only, ✕ No parking).

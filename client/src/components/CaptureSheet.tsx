@@ -78,7 +78,7 @@ export function CaptureSheet() {
   };
 
   return (
-    <Sheet open={open} onClose={close} title="Scan a sign" wide>
+    <Sheet open={open} onClose={close} title="Scan" wide>
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
           {cam === 'on' || cam === 'starting' ? (
@@ -109,10 +109,7 @@ export function CaptureSheet() {
             </div>
           ) : (
             <>
-              <p className="font-sign font-black text-signwhite">📷 Use your camera</p>
-              <p className="mt-1 text-xs text-white/55">
-                Opens the rear camera. Fit the whole pole in the frame.
-              </p>
+              <p className="font-sign font-black text-signwhite">📷 Camera</p>
               <button
                 type="button"
                 onClick={() => void startCamera()}
@@ -129,10 +126,7 @@ export function CaptureSheet() {
           )}
         </div>
         <div className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-4">
-          <p className="font-sign font-black text-signwhite">🖼 Upload or drop a photo</p>
-          <p className="mt-1 text-xs text-white/55">
-            JPEG or PNG. It’s resized in your browser and never leaves this computer.
-          </p>
+          <p className="font-sign font-black text-signwhite">🖼 Photo</p>
           <input
             ref={fileRef}
             type="file"
@@ -151,18 +145,12 @@ export function CaptureSheet() {
           >
             CHOOSE PHOTO
           </button>
-          {mode !== 'ai' && (
-            <p className="mt-2 text-[11px] text-yellow-200/70">
-              Demo mode: reading your own photos needs Ollama.
-            </p>
-          )}
+          {mode !== 'ai' && <p className="mt-2 text-[11px] text-yellow-200/70">Needs local AI</p>}
         </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="font-sign text-sm font-black tracking-widest text-white/80">
-          OR TRY A SAMPLE POLE
-        </h3>
+        <h3 className="font-sign text-sm font-black tracking-widest text-white/80">SAMPLES</h3>
         {mode === 'ai' && (
           <label className="flex items-center gap-2 text-[11px] text-white/60">
             <input
@@ -171,7 +159,7 @@ export function CaptureSheet() {
               onChange={(e) => setViaAi(e.target.checked)}
               className="accent-[#FFB347]"
             />
-            Read samples with the local AI
+            Read with AI
           </label>
         )}
       </div>
@@ -181,6 +169,7 @@ export function CaptureSheet() {
             <button
               type="button"
               onClick={() => void scanSample(sample, viaAi)}
+              title={sample.blurb}
               className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-black/30 text-left hover:border-sodium/50"
             >
               <div className="h-28 w-full overflow-hidden bg-asphalt-700">
@@ -192,7 +181,6 @@ export function CaptureSheet() {
               </div>
               <div className="p-2.5">
                 <p className="font-sign text-sm font-black text-signwhite">{sample.title}</p>
-                <p className="text-[11px] leading-snug text-white/50">{sample.blurb}</p>
               </div>
             </button>
           </li>

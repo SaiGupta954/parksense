@@ -53,9 +53,7 @@ function ScanOverlay() {
               {SCAN_STEPS[step]}
             </div>
             <p className="text-[11px] text-white/45">
-              {mode === 'ai'
-                ? '🔒 Reading on this device — nothing is uploaded.'
-                : 'Demo: using the sample’s known rules.'}
+              {mode === 'ai' ? '🔒 On this device' : 'Demo'}
             </p>
           </div>
         </motion.div>
@@ -69,7 +67,7 @@ function ViewToggle() {
   const setView = useStore((s) => s.setView);
   const views: Array<[View, string]> = [
     ['street', 'Street'],
-    ['week', 'Week Tower'],
+    ['week', 'Week'],
   ];
   return (
     <div
@@ -97,24 +95,26 @@ function ViewToggle() {
 
 function Legend() {
   return (
-    <ul className="glass hidden flex-wrap gap-x-3 gap-y-1 rounded-xl px-3 py-2 text-[11px] text-white/75 shadow-glass sm:flex">
-      {STATUSES.map((s) => (
-        <li key={s} className="flex items-center gap-1.5">
-          <span
-            className="inline-block h-2.5 w-2.5 rounded-sm"
+    <ul className="glass flex gap-1.5 rounded-full p-1.5 shadow-glass" aria-label="Colour key">
+      {STATUSES.map((s) => {
+        const label = s === 'TIME_LIMITED' ? 'Time limit' : statusLabel(s);
+        return (
+          <li
+            key={s}
+            title={label}
+            className="grid h-6 w-6 place-items-center rounded-full text-[11px] font-bold text-asphalt"
             style={{ background: STATUS_COLOR[s] }}
-            aria-hidden
-          />
-          <span aria-hidden>{statusIcon(s)}</span>
-          {s === 'TIME_LIMITED' ? 'Time limit' : statusLabel(s)}
-        </li>
-      ))}
+          >
+            <span aria-hidden>{statusIcon(s)}</span>
+            <span className="sr-only">{label}</span>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
 export function SceneOverlay() {
-  const view = useStore((s) => s.view);
   const photoUrl = useStore((s) => s.photoUrl);
   const phase = useStore((s) => s.phase);
   return (
@@ -127,17 +127,14 @@ export function SceneOverlay() {
           <img
             src={photoUrl}
             alt="The photo these rules were read from"
-            className="pointer-events-auto h-20 w-auto rounded-lg border border-white/10 object-contain opacity-80 shadow-glass transition hover:h-64 hover:opacity-100"
+            className="pointer-events-auto h-14 w-auto rounded-lg sm:h-20 border border-white/10 object-contain opacity-80 shadow-glass transition hover:h-64 hover:opacity-100"
           />
         )}
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-2 p-3">
-        <Legend />
-        <p className="hidden text-[11px] text-white/40 md:block">
-          {view === 'street'
-            ? 'Drag the ring to change the hour · drag the scene to orbit'
-            : 'Hover a block · click to jump there'}
-        </p>
+        <div className="pointer-events-auto">
+          <Legend />
+        </div>
       </div>
       <ScanOverlay />
     </>

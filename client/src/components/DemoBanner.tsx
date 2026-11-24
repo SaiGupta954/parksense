@@ -25,12 +25,11 @@ export function DemoBanner() {
     return (
       <div
         role="status"
-        className="relative z-20 mx-4 mb-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-sodium/25 bg-sodium/[0.07] px-3 py-2 text-xs text-white/80 lg:mx-6"
+        className="relative z-20 mx-auto mb-2 flex w-fit max-w-[calc(100%-2rem)] flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-sodium/25 bg-sodium/[0.07] px-3 py-2 text-xs text-white/80"
       >
         <span aria-hidden>👋</span>
-        <span>
-          This is the online demo, with 6 sample sign poles. Reading your own photos runs 100% on
-          your computer with a free local AI.
+        <span title="6 sample poles. Your own photos are read 100% on your computer with a free local AI.">
+          Online demo
         </span>
         <button
           type="button"
@@ -45,7 +44,7 @@ export function DemoBanner() {
           rel="noopener noreferrer"
           className="rounded-md px-2 py-0.5 text-sodium underline-offset-2 hover:underline"
         >
-          Run it locally →
+          Run locally →
         </a>
         <button
           type="button"
@@ -63,13 +62,13 @@ export function DemoBanner() {
   let reason: string;
   let command: string;
   if (!health) {
-    reason = 'No local ParkSense server found, so you’re in Demo mode with 6 sample sign stacks.';
+    reason = 'Server off';
     command = 'npm run dev';
   } else if (!health.ollama.reachable) {
-    reason = 'Ollama isn’t running, so you’re in Demo mode. Start it, then pull a vision model:';
+    reason = 'Start Ollama';
     command = `ollama serve && ${pull}`;
   } else {
-    reason = 'Ollama is running but has no vision model yet. You’re in Demo mode until you run:';
+    reason = 'Add a vision model';
     command = pull;
   }
 
@@ -86,10 +85,10 @@ export function DemoBanner() {
   return (
     <div
       role="status"
-      className="relative z-20 mx-4 mb-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-sodium/25 bg-sodium/[0.07] px-3 py-2 text-xs text-white/80 lg:mx-6"
+      className="relative z-20 mx-auto mb-2 flex w-fit max-w-[calc(100%-2rem)] flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-sodium/25 bg-sodium/[0.07] px-3 py-2 text-xs text-white/80"
     >
       <span aria-hidden>🧪</span>
-      <span>{reason}</span>
+      <span title="Demo mode uses 6 sample poles until the local AI is ready.">{reason}</span>
       <code className="rounded-md bg-black/40 px-2 py-0.5 font-mono text-[11px] text-sodium">
         {command}
       </code>

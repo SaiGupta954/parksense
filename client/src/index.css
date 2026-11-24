@@ -176,6 +176,12 @@ body {
     'scrub'
     'panel';
 }
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Tablet: give the 3D scene more room */
+  .area-scene {
+    height: 55vh !important;
+  }
+}
 .area-scene {
   grid-area: scene;
 }
@@ -187,7 +193,7 @@ body {
 }
 @media (min-width: 1024px) {
   .layout {
-    grid-template-columns: 60% 40%;
+    grid-template-columns: minmax(0, 1fr) clamp(360px, 32%, 460px);
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-areas:
       'scene panel'

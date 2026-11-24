@@ -117,8 +117,8 @@ export default function App() {
             <AnswerPanel />
           </aside>
         </main>
-        <footer className="border-t border-white/5 px-4 py-2 text-center text-[11px] text-white/45">
-          ParkSense is a helper, not legal advice. Always double-check the sign.
+        <footer className="border-t border-white/5 px-4 py-1.5 text-center text-[10px] text-white/35">
+          A helper, not legal advice — always check the sign.
         </footer>
         <CaptureSheet />
         <SettingsSheet />

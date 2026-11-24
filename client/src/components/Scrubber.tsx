@@ -88,7 +88,9 @@ export function Scrubber() {
 
       <div className="relative min-w-0 flex-1">
         <div className="mb-1 flex items-center justify-between text-[11px] text-white/50">
-          <span className="font-sign font-bold tracking-widest text-white/70">TIME-TRAVEL</span>
+          <span aria-hidden className="text-white/40">
+            ⏱
+          </span>
           <span className="font-sign text-sm font-bold text-signwhite">
             {weekdayLong(at)} {formatTime(at)}
           </span>

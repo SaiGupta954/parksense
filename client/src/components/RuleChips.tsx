@@ -10,10 +10,9 @@ import {
   type Evaluation,
   type SignRule,
 } from '../engine';
+import { signStyle } from '../signStyle';
 import { useStore } from '../store';
 
-const chip =
-  'rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-white/85 hover:border-white/25 focus-visible:border-sodium';
 const input =
   'rounded-lg border border-white/10 bg-black/30 px-2 py-1 text-xs text-white/90 focus:border-sodium focus:outline-none';
 
@@ -36,6 +35,7 @@ function RuleCard({
   };
   const daysOn = (d: Day) => rule.days.length === 0 || rule.days.includes(d);
   const low = rule.confidence < 0.7;
+  const style = signStyle(rule.type);
   const badge =
     state === 'controlling'
       ? 'border-sodium/60 shadow-sodium'
@@ -44,71 +44,63 @@ function RuleCard({
         : 'border-white/[0.06] opacity-75';
 
   return (
-    <li className={`rounded-2xl border bg-black/20 p-3 transition ${badge}`}>
-      <div className="flex items-start gap-3">
+    <li className={`rounded-xl border bg-black/20 transition ${badge}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-label={`Edit sign ${rule.order}`}
+        title={`${TYPE_LABEL[rule.type]} · ${describeSchedule(rule)}`}
+        className="flex w-full items-center gap-2.5 px-2.5 py-2 text-left"
+      >
         <span
-          className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg font-sign text-sm font-black ${
-            state === 'controlling' ? 'bg-sodium text-asphalt' : 'bg-white/10 text-white/80'
-          }`}
-          aria-label={`Sign ${rule.order}`}
+          aria-hidden
+          className="grid h-6 w-6 shrink-0 place-items-center rounded-md border font-sign text-xs font-black"
+          style={{ background: style.bg, color: style.fg, borderColor: style.border }}
         >
           {rule.order}
         </span>
-        <div className="min-w-0 flex-1">
-          <p
-            className="truncate font-sign text-sm font-bold text-signwhite"
-            title={quoteSign(rule.rawText)}
-          >
-            {quoteSign(rule.rawText)}
-          </p>
-          <p className="text-[11px] text-white/50">
-            {TYPE_LABEL[rule.type]} · {describeSchedule(rule)}
-            {state === 'skipped' ? ' · other side' : ''}
-            {low && (
-              <span className="ml-1 text-yellow-300">
-                · {Math.round(rule.confidence * 100)}% sure
-              </span>
-            )}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-expanded={open}
-          aria-label={`Edit sign ${rule.order}`}
-          className="rounded-full px-2 py-1 text-xs text-sodium hover:bg-sodium/10"
-        >
-          {open ? 'Done' : 'Edit'}
-        </button>
-      </div>
-
-      {/* Chips — always visible, quick to scan */}
-      <div
-        className="mt-2.5 flex flex-wrap gap-1.5"
-        role="group"
-        aria-label={`Days for sign ${rule.order}`}
-      >
-        {DAY_CODES.map((d) => (
-          <button
-            key={d}
-            type="button"
-            aria-pressed={daysOn(d)}
-            onClick={() => toggleDay(d)}
-            className={`rounded-md px-1.5 py-0.5 font-sign text-[11px] font-bold ${
-              daysOn(d) ? 'bg-signwhite/90 text-asphalt' : 'bg-white/5 text-white/35 line-through'
-            }`}
-          >
-            {d}
-          </button>
-        ))}
-        {rule.maxMinutes != null && <span className={chip}>⏱ {rule.maxMinutes} min</span>}
-        {rule.permitZone && <span className={chip}>🅿 Zone {rule.permitZone}</span>}
-        {rule.arrow !== 'none' && <span className={chip}>Arrow {rule.arrow}</span>}
-        {rule.exceptText && <span className={chip}>{rule.exceptText}</span>}
-      </div>
+        <span className="min-w-0 flex-1 truncate font-sign text-sm font-bold text-signwhite">
+          {quoteSign(rule.rawText)}
+        </span>
+        {low && (
+          <span className="text-xs font-bold text-yellow-300" title="Not sure — please check">
+            ?
+          </span>
+        )}
+        {state === 'skipped' && (
+          <span className="text-xs text-white/40" title="Arrow points to the other side">
+            ↷
+          </span>
+        )}
+        <span aria-hidden className="text-xs text-white/40">
+          {open ? '▴' : '✎'}
+        </span>
+      </button>
 
       {open && (
-        <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-white/60">
+        <div className="grid grid-cols-2 gap-2 px-2.5 pb-3 text-[11px] text-white/60">
+          <div
+            className="col-span-2 flex flex-wrap gap-1"
+            role="group"
+            aria-label={`Days for sign ${rule.order}`}
+          >
+            {DAY_CODES.map((d) => (
+              <button
+                key={d}
+                type="button"
+                aria-pressed={daysOn(d)}
+                onClick={() => toggleDay(d)}
+                className={`rounded-md px-1.5 py-0.5 font-sign text-[11px] font-bold ${
+                  daysOn(d)
+                    ? 'bg-signwhite/90 text-asphalt'
+                    : 'bg-white/5 text-white/35 line-through'
+                }`}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
           <label className="col-span-2 flex flex-col gap-1">
             Sign text
             <textarea
@@ -237,29 +229,28 @@ export function RuleChips({ evaluation }: { evaluation: Evaluation }) {
 
   return (
     <section aria-labelledby="rules-heading">
-      <div className="mb-2 flex items-center justify-between">
+      <div className="mb-1.5 flex items-center justify-between">
         <h3
           id="rules-heading"
           className="font-sign text-sm font-black tracking-widest text-white/80"
         >
-          WHAT I READ
+          SIGNS {edited && <span className="ml-1 text-[11px] text-permit">✓ edited</span>}
         </h3>
-        <span className="text-[11px] text-white/40">
-          {edited ? 'Edited by you ✓' : 'Tap Edit to fix anything'}
-        </span>
+        <button
+          type="button"
+          onClick={addRule}
+          aria-label="Add a sign"
+          title="Add a sign"
+          className="grid h-7 w-7 place-items-center rounded-full border border-white/10 text-white/70 hover:bg-white/10"
+        >
+          +
+        </button>
       </div>
-      <ul className="space-y-2">
+      <ul className="space-y-1.5">
         {rules.map((r) => (
           <RuleCard key={r.order} rule={r} state={stateOf(r)} />
         ))}
       </ul>
-      <button
-        type="button"
-        onClick={addRule}
-        className="mt-2 w-full rounded-xl border border-dashed border-white/15 py-2 text-xs text-white/60 hover:border-white/30 hover:text-white"
-      >
-        + Add a sign
-      </button>
     </section>
   );
 }

@@ -47,11 +47,14 @@ function reset(rules: SignRule[], notes = '') {
 describe('AnswerPanel', () => {
   beforeEach(() => reset([cleaning]));
 
-  it('shows a big NO with the next allowed time and the Why trace', () => {
+  it('shows a big NO, a short next-allowed line, and the Why trace on tap', async () => {
+    const user = userEvent.setup();
     render(<AnswerPanel />);
     expect(screen.getByText('NO')).toBeInTheDocument();
-    expect(screen.getByText(/Next allowed today at 12:00 PM/)).toBeInTheDocument();
+    expect(screen.getByText('free from 12:00 PM')).toBeInTheDocument();
     expect(screen.getByText(/✕ No parking/)).toBeInTheDocument();
+    expect(screen.queryByText(/Sign 1 says/)).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /WHY\?/ }));
     expect(screen.getAllByText(/Sign 1 says 'NO PARKING 10AM-12PM TUE'/).length).toBeGreaterThan(0);
   });
 
@@ -64,7 +67,7 @@ describe('AnswerPanel', () => {
     expect(screen.getByText('NO')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'TUE' }));
     expect(screen.getByText('YES')).toBeInTheDocument();
-    expect(screen.getByText('Edited by you ✓')).toBeInTheDocument();
+    expect(screen.getByText('✓ edited')).toBeInTheDocument();
   });
 
   it('changing the end time updates the answer', () => {
@@ -80,9 +83,9 @@ describe('AnswerPanel', () => {
     reset(permit.expected.signs, permit.expected.notes);
     const user = userEvent.setup();
     render(<AnswerPanel />);
-    expect(screen.getByText(/Please confirm what I read/)).toBeInTheDocument();
+    expect(screen.getByText('Check sign 2')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Looks right' }));
-    expect(screen.queryByText(/Please confirm what I read/)).not.toBeInTheDocument();
+    expect(screen.queryByText('Check sign 2')).not.toBeInTheDocument();
   });
 });
 
@@ -133,8 +136,8 @@ describe('DemoBanner', () => {
     });
     act(() => useStore.setState({ mode: 'demo', health: null, forceDemo: false }));
     render(<DemoBanner />);
-    expect(screen.getByText(/This is the online demo/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Run it locally/ })).toHaveAttribute(
+    expect(screen.getByText('Online demo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Run locally/ })).toHaveAttribute(
       'href',
       'https://github.com/SaiGupta954/parksense#setup',
     );

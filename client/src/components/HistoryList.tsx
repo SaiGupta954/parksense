@@ -27,10 +27,7 @@ export function HistoryList() {
         id="history-heading"
         className="mb-2 font-sign text-sm font-black tracking-widest text-white/80"
       >
-        RECENT SCANS{' '}
-        <span className="font-sans text-[11px] font-normal tracking-normal text-white/40">
-          · stored on this device
-        </span>
+        RECENT
       </h3>
       <ul className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
         {scans.map((scan) => {

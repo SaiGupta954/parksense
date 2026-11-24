@@ -69,11 +69,7 @@ export function LeaveBy() {
     );
     setReminderAt(fireAt);
     setFired(false);
-    setNote(
-      canNotify
-        ? null
-        : 'Notifications are off, so I’ll show it here and speak it aloud instead. Keep this tab open.',
-    );
+    setNote(canNotify ? null : 'Notifications off — I’ll speak it. Keep this tab open.');
   };
 
   const cancel = () => {
@@ -87,67 +83,43 @@ export function LeaveBy() {
   return (
     <section
       aria-label="Leave-by reminder"
-      className={`flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border p-3 ${
+      className={`flex items-center gap-3 rounded-2xl border px-3 py-2 ${
         fired || soon ? 'border-regulatory/50 bg-regulatory/10' : 'border-white/[0.07] bg-black/20'
       }`}
     >
-      <svg width="64" height="64" viewBox="0 0 64 64" className="shrink-0" aria-hidden>
-        <circle cx="32" cy="32" r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="5" />
+      <svg width="44" height="44" viewBox="0 0 64 64" className="shrink-0" aria-hidden>
+        <circle cx="32" cy="32" r={R} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="6" />
         <circle
           cx="32"
           cy="32"
           r={R}
           fill="none"
           stroke={soon ? '#E0322B' : '#FFB347'}
-          strokeWidth="5"
+          strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={C}
           strokeDashoffset={C * (1 - frac)}
           transform="rotate(-90 32 32)"
           style={{ transition: 'stroke-dashoffset 1s linear' }}
         />
-        <text
-          x="32"
-          y="36"
-          textAnchor="middle"
-          fontSize="11"
-          fontWeight="700"
-          fill="#F4F1EA"
-          fontFamily="Overpass, sans-serif"
-        >
-          {fmtLeft(left)}
-        </text>
       </svg>
-      <div className="min-w-[11rem] flex-1 text-sm">
-        <p className="font-semibold text-signwhite">
-          {fired
-            ? '⏰ 10 minutes left — time to move!'
-            : `Leave by ${formatUntil(until, new Date(now))}`}
-        </p>
-        <p className="text-xs text-white/50">
-          {reminderAt
-            ? `Reminder set for ${formatUntil(new Date(reminderAt), new Date(now))}.`
-            : 'Get a nudge before the rules change.'}
-        </p>
-        {note && <p className="mt-1 text-[11px] text-yellow-200/80">{note}</p>}
+      <div className="min-w-0 flex-1 leading-tight">
+        <p className="font-sign text-lg font-black text-signwhite">{fmtLeft(left)}</p>
+        <p className="text-xs text-white/50">{fired ? '⏰ Time to move!' : 'left'}</p>
+        {note && <p className="text-[11px] text-yellow-200/80">{note}</p>}
       </div>
-      {reminderAt ? (
-        <button
-          type="button"
-          onClick={cancel}
-          className="rounded-full px-3 py-1.5 text-xs text-white/60 hover:text-white"
-        >
-          Cancel
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={() => void arm()}
-          className="rounded-full border border-sodium/40 px-3 py-1.5 text-xs font-semibold text-sodium hover:bg-sodium/10"
-        >
-          Remind me 10 min before
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={reminderAt ? cancel : () => void arm()}
+        aria-pressed={reminderAt != null}
+        aria-label={reminderAt ? 'Cancel reminder' : 'Remind me 10 min before'}
+        title={reminderAt ? 'Reminder on — tap to cancel' : 'Remind me 10 min before'}
+        className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border text-lg ${
+          reminderAt ? 'border-sodium bg-sodium/20' : 'border-white/10 bg-white/5 hover:bg-white/10'
+        }`}
+      >
+        {reminderAt ? '🔔' : '🔕'}
+      </button>
     </section>
   );
 }
