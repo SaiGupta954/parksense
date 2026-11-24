@@ -122,3 +122,23 @@ describe('samples', () => {
     expect(SAMPLES.find((s) => s.id === 'nightmare')?.expected.signs).toHaveLength(4);
   });
 });
+
+describe('DemoBanner', () => {
+  it('welcomes visitors on the hosted demo instead of showing setup commands', async () => {
+    const { DemoBanner } = await import('./DemoBanner');
+    const original = window.location;
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: { ...original, hostname: 'saigupta954.github.io' },
+    });
+    act(() => useStore.setState({ mode: 'demo', health: null, forceDemo: false }));
+    render(<DemoBanner />);
+    expect(screen.getByText(/This is the online demo/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Run it locally/ })).toHaveAttribute(
+      'href',
+      'https://github.com/SaiGupta954/parksense#setup',
+    );
+    expect(screen.queryByText('npm run dev')).not.toBeInTheDocument();
+    Object.defineProperty(window, 'location', { configurable: true, value: original });
+  });
+});
